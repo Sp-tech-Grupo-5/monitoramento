@@ -1,2 +1,2 @@
 # Tela Swing
-Conectada ao banco e API looca.
+Conexão banco e API looca.
