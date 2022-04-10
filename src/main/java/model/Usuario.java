@@ -8,7 +8,7 @@ package model;
 
 /**
  *
- * @author grupo5- 2 ADSA
+ * @authors
  */
 public class Usuario {
     private String usuario;

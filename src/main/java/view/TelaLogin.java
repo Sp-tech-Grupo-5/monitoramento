@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author raylane
+ * @author  grupo5- 2 ADSA
  */
 public class TelaLogin extends javax.swing.JFrame {
 
@@ -136,7 +136,8 @@ public class TelaLogin extends javax.swing.JFrame {
         if(validation.validationData(Email, Senha)){
         
                 lblVerification.setText("Usuario Verificado");
-           
+                jButton(evt);
+               
         
         }else{
             JOptionPane.showMessageDialog(rootPane, "Email/Senha inválido");
@@ -175,8 +176,15 @@ public class TelaLogin extends javax.swing.JFrame {
             public void run() {
                 new TelaLogin().setVisible(true);
             }
+            
         });
     }
+    
+    private void jButton(java.awt.event.ActionEvent evt) {  
+                        TelaMonitoramento telaMonitoramento  = new TelaMonitoramento();
+			telaMonitoramento.setLocationRelativeTo(null);
+			telaMonitoramento.setVisible(true);
+}   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel imageLogo;

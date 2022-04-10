@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package controller;
 
 import connection.Connection;
@@ -12,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
- * @author raylane
+ * @author  grupo5- 2 ADSA
  */
 public class ControllerLogin {
     Connection config = new Connection();
@@ -23,7 +20,7 @@ public class ControllerLogin {
         Boolean dataValid = false;
         try{
         List<Usuario> getUser;
-        getUser= connect.query("SELECT * FROM Usuario WHERE email=? AND senha=?",
+        getUser= connect.query("SELECT * FROM usuario WHERE email=? AND senha=?",
                 new BeanPropertyRowMapper<>(Usuario.class),email,senha);
         if(!getUser.isEmpty()){
         dataValid= true;
