@@ -36,5 +36,10 @@
             <artifactId>looca-api</artifactId>
             <version>1.0.3</version>
         </dependency>
+        <dependency>
+        <groupId>com.github.britooo</groupId>
+        <artifactId>looca-api</artifactId>
+        <version>1.0.3</version>
+        </dependency>
     </dependencies>
 </project>

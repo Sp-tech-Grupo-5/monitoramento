@@ -4,20 +4,25 @@
  */
 package view;
 
-import controller.ControllerLogin;
+import services.ServiceLogin;
 import javax.swing.JOptionPane;
+import services.ServiceHistoricoComponente;
+
 
 /**
  *
- * @author raylane
+ * @author grupo5- 2 ADSA
  */
 public class TelaLogin extends javax.swing.JFrame {
+    ServiceHistoricoComponente serviceHistoricoComponente = new ServiceHistoricoComponente();
+
 
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -115,7 +120,8 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGap(9, 9, 9))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(516, 468));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
@@ -127,20 +133,22 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_pwdLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         String Email = this.txtEmail.getText();
-       String Senha = new String(this.pwdLogin.getPassword());
-      
-        ControllerLogin validation = new ControllerLogin();
+        String Email = this.txtEmail.getText();
+        String Senha = new String(this.pwdLogin.getPassword());
+
+        ServiceLogin validation = new ServiceLogin();
         validation.validationData(Email, Senha);
-        
-        if(validation.validationData(Email, Senha)){
-        
-                lblVerification.setText("Usuario Verificado");
-           
-        
-        }else{
+
+        if (validation.validationData(Email, Senha)) {
+
+            lblVerification.setText("Usuario Verificado");
+            serviceHistoricoComponente.insertHistoricoComponentes();
+            jButton(evt);
+
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Email/Senha inválido");
-        }        // TODO add your handling code here:
+            
+        }        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -175,7 +183,15 @@ public class TelaLogin extends javax.swing.JFrame {
             public void run() {
                 new TelaLogin().setVisible(true);
             }
+
         });
+    }
+
+    private void jButton(java.awt.event.ActionEvent evt) {
+        TelaInicial telaInicial = new TelaInicial();
+        telaInicial.setLocationRelativeTo(null);
+        telaInicial.setVisible(true);
+        dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
