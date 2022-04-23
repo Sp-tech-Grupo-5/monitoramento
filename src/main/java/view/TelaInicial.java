@@ -4,7 +4,10 @@
  */
 package view;
 
-import services.ServiceSistema;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+import model.ModelComputadores;
 
 /**
  *
@@ -17,7 +20,11 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
-        ServiceSistema controllerSistema = new ServiceSistema();
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
+        setIconImage(iconeTitulo);
+        
+        ModelComputadores controllerSistema = new ModelComputadores();
         
         lblUsuarioLogado.setText(controllerSistema.getUsuario());
         lblSistemaOperacional.setText(controllerSistema.getSistemaOperacional());

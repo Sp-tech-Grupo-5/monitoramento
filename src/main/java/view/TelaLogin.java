@@ -4,9 +4,17 @@
  */
 package view;
 
-import services.ServiceLogin;
+import controller.ControllerComponentes;
+import controller.ControllerLogin;
 import javax.swing.JOptionPane;
-import services.ServiceHistoricoComponente;
+import controller.ControllerHistoricoComponente;
+import controller.ControllerProcessos;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -14,7 +22,9 @@ import services.ServiceHistoricoComponente;
  * @author grupo5- 2 ADSA
  */
 public class TelaLogin extends javax.swing.JFrame {
-    ServiceHistoricoComponente serviceHistoricoComponente = new ServiceHistoricoComponente();
+    ControllerHistoricoComponente controllerHistoricoComponente = new ControllerHistoricoComponente();
+    ControllerProcessos controllerProcessos = new ControllerProcessos();
+    ControllerComponentes controllerComponentes = new ControllerComponentes();
 
 
     /**
@@ -23,7 +33,13 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
+        setIconImage(iconeTitulo);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,14 +152,20 @@ public class TelaLogin extends javax.swing.JFrame {
         String Email = this.txtEmail.getText();
         String Senha = new String(this.pwdLogin.getPassword());
 
-        ServiceLogin validation = new ServiceLogin();
+        ControllerLogin validation = new ControllerLogin();
         validation.validationData(Email, Senha);
 
         if (validation.validationData(Email, Senha)) {
-
-            lblVerification.setText("Usuario Verificado");
-            serviceHistoricoComponente.insertHistoricoComponentes();
-            jButton(evt);
+            try {
+                System.out.println("Bem vindo ao RX-Monitoramento");
+                lblVerification.setText("Usuario Verificado");
+                controllerHistoricoComponente.insertHistoricoComponentes();
+                controllerProcessos.insertProcessos();
+                controllerComponentes.insertComponentes();
+                jButton(evt);
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Email/Senha inválido");

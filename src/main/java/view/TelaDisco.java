@@ -4,10 +4,13 @@
  */
 package view;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
-import services.ServiceDiscos;
-import services.ServiceMemoria;
+import model.ModelDiscos;
+import model.ModelMemoria;
 
 
 /**
@@ -21,7 +24,11 @@ public class TelaDisco extends javax.swing.JFrame {
      */
     public TelaDisco() {
         initComponents();
-        ServiceDiscos serviceDiscos= new ServiceDiscos();
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
+        setIconImage(iconeTitulo);
+        
+        ModelDiscos serviceDiscos= new ModelDiscos();
         
         
         String tamanhoTotal = String.format("%.2f Gb", serviceDiscos.getTamanhoTotal());

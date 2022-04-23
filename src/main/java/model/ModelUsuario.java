@@ -10,7 +10,7 @@ package model;
  *
  * @authors
  */
-public class Usuario {
+public class ModelUsuario {
     private String usuario;
     private String email;
     private String senha;

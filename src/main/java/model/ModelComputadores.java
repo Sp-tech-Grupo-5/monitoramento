@@ -1,16 +1,20 @@
 
-package services;
+package model;
 
 import com.github.britooo.looca.api.group.sistema.Sistema;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  *
  * @author raylane
  */
-public class ServiceSistema {
+public class ModelComputadores {
     private String usuario;
     private String sistemaOperacional;
     private Integer arquitetura;
+    private String ip;
+    private String hostName;
     
     Sistema sistema = new Sistema();
 
@@ -24,6 +28,14 @@ public class ServiceSistema {
 
     public Integer getArquitetura() {
         return sistema.getArquitetura();
+    }
+    
+    public String getIp() throws UnknownHostException{
+        return InetAddress.getLocalHost().getHostAddress();
+    }
+
+    public String getHostName() throws UnknownHostException {
+        return InetAddress.getLocalHost().getHostName();
     }
     
     

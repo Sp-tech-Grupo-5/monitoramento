@@ -1,4 +1,4 @@
-package services;
+package model;
 
 import com.github.britooo.looca.api.group.memoria.Memoria;
 
@@ -6,7 +6,7 @@ import com.github.britooo.looca.api.group.memoria.Memoria;
  *
  * @author raylane
  */
-public class ServiceMemoria {
+public class ModelMemoria {
 
     private Double memoriaTotal;
     private Double memoriaEmUso;

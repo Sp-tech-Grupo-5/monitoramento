@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package services;
+package controller;
 
 import connection.Connection;
 import java.util.List;
-import model.Usuario;
+import model.ModelUsuario;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  *
  * @author raylane
  */
-public class ServiceLogin {
+public class ControllerLogin {
      Connection config = new Connection();
     
     JdbcTemplate connect = new JdbcTemplate(config.getBasicDataSource());
@@ -22,9 +22,9 @@ public class ServiceLogin {
     public Boolean validationData(String email,String senha){
         Boolean dataValid = false;
         try{
-        List<Usuario> getUser;
+        List<ModelUsuario> getUser;
         getUser= connect.query("SELECT * FROM usuario WHERE email=? AND senha=?",
-                new BeanPropertyRowMapper<>(Usuario.class),email,senha);
+                new BeanPropertyRowMapper<>(ModelUsuario.class),email,senha);
         if(!getUser.isEmpty()){
         dataValid= true;
         }

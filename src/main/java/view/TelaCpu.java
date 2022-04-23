@@ -4,7 +4,10 @@
  */
 package view;
 
-import services.ServiceCpu;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+import model.ModelCpu;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,7 +22,11 @@ public class TelaCpu extends javax.swing.JFrame {
      */
     public TelaCpu() {
         initComponents();
-        ServiceCpu serviceCpu = new ServiceCpu();
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
+        setIconImage(iconeTitulo);
+        
+        ModelCpu serviceCpu = new ModelCpu();
 
         lblNomeProcessador.setText(serviceCpu.getNomeProcessador());
         lblCpuLogicas.setText(serviceCpu.cpuLogicas() + "");

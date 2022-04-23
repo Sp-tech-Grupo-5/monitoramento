@@ -4,9 +4,12 @@
  */
 package view;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
-import services.ServiceMemoria;
+import model.ModelMemoria;
 
 
 /**
@@ -20,7 +23,11 @@ public class TelaMemoria extends javax.swing.JFrame {
      */
     public TelaMemoria() {
         initComponents();
-        ServiceMemoria serviceMemoria= new ServiceMemoria();
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
+        setIconImage(iconeTitulo);
+        
+        ModelMemoria serviceMemoria= new ModelMemoria();
         
         String memoriaTotal = String.format("%.1f Gb", serviceMemoria.getMemoriaTotal());
         lblTotal.setText(memoriaTotal);

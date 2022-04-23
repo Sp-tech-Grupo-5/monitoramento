@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package services;
+package model;
 
 import com.github.britooo.looca.api.group.discos.DiscosGroup;
 import com.github.britooo.looca.api.group.discos.Volume;
@@ -11,7 +11,7 @@ import com.github.britooo.looca.api.group.discos.Volume;
  *
  * @author raylane
  */
-public class ServiceDiscos {
+public class ModelDiscos {
 
     private Double tamanhoTotal;
     private Double disponivel;
