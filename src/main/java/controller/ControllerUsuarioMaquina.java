@@ -46,10 +46,10 @@ public class ControllerUsuarioMaquina {
                 getUser.get(0).getId(),
                 dateLogin);
 
-        templateMysql.update("INSERT INTO usuarioMaquina (estado,fkMaquina,fkUsuario,dataHoraLogin) values (1,?,?,?)",
+       /* templateMysql.update("INSERT INTO usuarioMaquina (estado,fkMaquina,fkUsuario,dataHoraLogin) values (1,?,?,?)",
                 getIdComponentes.get(0).getId(),
                 getUser.get(0).getId(),
-                dateFormat.format(dateLogin));
+                dateFormat.format(dateLogin));*/
 
     }
 
@@ -63,8 +63,8 @@ public class ControllerUsuarioMaquina {
                 dateLogout,
                 getIdComponentes.get(0).getId());
 
-        templateMysql.update("UPDATE usuarioMaquina set estado=0, dataHoraLogout=? where fkMaquina=?",
+       /* templateMysql.update("UPDATE usuarioMaquina set estado=0, dataHoraLogout=? where fkMaquina=?",
                 dateFormat.format(dateLogout),
-                getIdComponentes.get(0).getId());
+                getIdComponentes.get(0).getId());*/
     }
 }

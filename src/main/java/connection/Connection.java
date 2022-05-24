@@ -28,7 +28,7 @@ public class Connection {
       public Connection(Boolean mysql){
         dataSource= new  BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://172.20.20.4/rxmonitoramento");
+        dataSource.setUrl("jdbc:mysql://0.0.0.0/rxmonitoramento");
         dataSource.setUsername("root");
         dataSource.setPassword("root");
         
