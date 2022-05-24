@@ -4,9 +4,14 @@
  */
 package view;
 
+import controller.ControllerLogin;
+import controller.ControllerUsuarioMaquina;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.ModelComputadores;
 
 /**
@@ -14,6 +19,8 @@ import model.ModelComputadores;
  * @author raylane
  */
 public class TelaInicial extends javax.swing.JFrame {
+
+    ControllerUsuarioMaquina usuarioMaquina = new ControllerUsuarioMaquina();
 
     /**
      * Creates new form TelaInicial
@@ -23,12 +30,11 @@ public class TelaInicial extends javax.swing.JFrame {
         URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
         setIconImage(iconeTitulo);
-        
+
         ModelComputadores controllerSistema = new ModelComputadores();
-        
+
         lblUsuarioLogado.setText(controllerSistema.getUsuario());
-        lblSistemaOperacional.setText(controllerSistema.getSistemaOperacional());
-        lblArquitetura.setText(controllerSistema.getArquitetura() + "bits");
+
     }
 
     /**
@@ -53,6 +59,11 @@ public class TelaInicial extends javax.swing.JFrame {
         btnMemoria1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                bye(evt);
+            }
+        });
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-rx-monitoramento.png"))); // NOI18N
 
@@ -162,16 +173,14 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscoActionPerformed
-        TelaDisco telaDisco = new TelaDisco();
-        telaDisco.setLocationRelativeTo(null);
-        telaDisco.setVisible(true);
+        
+      
         dispose();
     }//GEN-LAST:event_btnDiscoActionPerformed
 
     private void btnCPU1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCPU1ActionPerformed
-        TelaCpu telaCpu = new TelaCpu();
-        telaCpu.setLocationRelativeTo(null);
-        telaCpu.setVisible(true);
+       
+       
         dispose();
     }//GEN-LAST:event_btnCPU1ActionPerformed
 
@@ -181,6 +190,19 @@ public class TelaInicial extends javax.swing.JFrame {
         telaMemoria.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnMemoria1ActionPerformed
+
+    private void bye(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_bye
+        ControllerLogin validation = new ControllerLogin();
+        try {
+            if (validation.validationDataLogout()) {
+                usuarioMaquina.insertUsuarioMaquinaLogout();
+            }
+            System.out.println("byeeeeeee");
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_bye
 
     /**
      * @param args the command line arguments

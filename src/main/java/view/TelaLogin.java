@@ -9,12 +9,14 @@ import controller.ControllerLogin;
 import javax.swing.JOptionPane;
 import controller.ControllerHistoricoComponente;
 import controller.ControllerProcessos;
+import controller.ControllerUsuarioMaquina;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 
 /**
@@ -25,6 +27,7 @@ public class TelaLogin extends javax.swing.JFrame {
     ControllerHistoricoComponente controllerHistoricoComponente = new ControllerHistoricoComponente();
     ControllerProcessos controllerProcessos = new ControllerProcessos();
     ControllerComponentes controllerComponentes = new ControllerComponentes();
+    ControllerUsuarioMaquina usuarioMaquina = new ControllerUsuarioMaquina();
 
 
     /**
@@ -59,6 +62,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblVerification = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Rx Monitoramento - Login");
 
         imageLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-rx-monitoramento.png"))); // NOI18N
 
@@ -110,7 +114,7 @@ public class TelaLogin extends javax.swing.JFrame {
                                 .addComponent(lblEmail)
                                 .addComponent(txtEmail)
                                 .addComponent(pwdLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblVerification)
@@ -129,7 +133,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(lblSenha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pwdLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblVerification)
@@ -151,25 +155,27 @@ public class TelaLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String Email = this.txtEmail.getText();
         String Senha = new String(this.pwdLogin.getPassword());
-
         ControllerLogin validation = new ControllerLogin();
-        validation.validationData(Email, Senha);
 
-        if (validation.validationData(Email, Senha)) {
+        if (validation.validationDataLogin(Email, Senha)) {
+            System.out.println("Bem vindo ao RX-Monitoramento");
+            lblVerification.setText("Usuario Verificado");
+            
+            
             try {
-                System.out.println("Bem vindo ao RX-Monitoramento");
-                lblVerification.setText("Usuario Verificado");
                 controllerHistoricoComponente.insertHistoricoComponentes();
                 controllerProcessos.insertProcessos();
+                controllerProcessos.insertProcessosMysql();
                 controllerComponentes.insertComponentes();
-                jButton(evt);
+                controllerComponentes.insertComponentesMysql();
             } catch (UnknownHostException ex) {
                 Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            jButton(evt);
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Email/Senha inválido");
-            
         }        
     }//GEN-LAST:event_jButton1ActionPerformed
 
