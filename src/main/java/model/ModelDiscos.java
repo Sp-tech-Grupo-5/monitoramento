@@ -25,15 +25,15 @@ public class ModelDiscos {
         return tamanhoTotal;
     }
 
-    public Double getDisponivel() {
-        Double disponivel = Double.valueOf(discosGroup.getVolumes().get(0).getDisponivel());
-        disponivel /= 1000000000;
-        return disponivel;
+    public Double getEmUso() {
+        Double emUso = Double.valueOf(discosGroup.getVolumes().get(0).getDisponivel());
+        emUso /= 1000000000;
+        return emUso;
     }
 
-    public Double getEmUso() {
-        Double emUso = this.getTamanhoTotal() - this.getDisponivel();
-        return emUso;
+    public Double getDisponivel() {
+        Double disponivel = this.getTamanhoTotal() - this.getEmUso();
+        return disponivel;
     }
     
     

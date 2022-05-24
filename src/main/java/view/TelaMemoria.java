@@ -68,8 +68,6 @@ public class TelaMemoria extends javax.swing.JFrame {
         lblTotal = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-rx-monitoramento.png"))); // NOI18N
 
         lblMemoria.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
