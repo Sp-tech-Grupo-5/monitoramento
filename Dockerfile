@@ -1,6 +1,6 @@
-FROM openjdk:11
+FROM openjdk:19
+WORKDIR /target
 COPY . .
-WORKDIR . /app-java
-RUN bash
+RUN ls
 ENTRYPOINT java -jar rxmonitoramento-grupo5-CLI.jar
-CMD ["bash", "java", "-jar" "main"]
+CMD ["bash","java","-jar" "Main"]
