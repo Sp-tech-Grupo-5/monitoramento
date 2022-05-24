@@ -18,7 +18,7 @@ services:
           - "3306"
 
     RxMonitoramento:
-        image: grupo5monitoramento/rxmonitoramento:1.1
+        image: grupo5monitoramento/rxmonitoramento:1.3
         container_name: RxMonitoramento
         networks:
           compose-bridge:
