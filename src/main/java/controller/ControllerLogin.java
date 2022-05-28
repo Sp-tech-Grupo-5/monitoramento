@@ -15,24 +15,27 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author raylane
  */
 public class ControllerLogin {
-     Connection config = new Connection();
-    
+
+    Connection config = new Connection();
     JdbcTemplate connect = new JdbcTemplate(config.getBasicDataSource());
     
-    public Boolean validationData(String email,String senha){
+    ControllerUsuarioMaquina usuarioMaquina = new ControllerUsuarioMaquina();
+    
+    public Boolean validationDataLogin(String email, String senha) {
         Boolean dataValid = false;
-        try{
-        List<ModelUsuario> getUser;
-        getUser= connect.query("SELECT * FROM usuario WHERE email=? AND senha=?",
-                new BeanPropertyRowMapper<>(ModelUsuario.class),email,senha);
-        if(!getUser.isEmpty()){
-        dataValid= true;
-        }
-        
-        }catch(Exception e){
+        try {
+            List<ModelUsuario> getUser;
+                getUser = connect.query("SELECT * FROM usuario WHERE email=? AND senha=?",
+                        new BeanPropertyRowMapper<>(ModelUsuario.class), email, senha);
+                if (!getUser.isEmpty()) {
+                    dataValid = true;
+                    usuarioMaquina.insertUsuarioMaquinaLogin(getUser);
+                }
+                
+        } catch (Exception e) {
             System.err.println(e);
         }
         return dataValid;
     }
-    
+
 }

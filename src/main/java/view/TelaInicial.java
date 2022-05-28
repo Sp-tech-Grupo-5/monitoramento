@@ -4,9 +4,13 @@
  */
 package view;
 
+import controller.ControllerUsuarioMaquina;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.ModelComputadores;
 
 /**
@@ -26,9 +30,9 @@ public class TelaInicial extends javax.swing.JFrame {
         
         ModelComputadores controllerSistema = new ModelComputadores();
         
+        
         lblUsuarioLogado.setText(controllerSistema.getUsuario());
-        lblSistemaOperacional.setText(controllerSistema.getSistemaOperacional());
-        lblArquitetura.setText(controllerSistema.getArquitetura() + "bits");
+        
     }
 
     /**
@@ -48,11 +52,12 @@ public class TelaInicial extends javax.swing.JFrame {
         lblSistemaOperacional = new javax.swing.JLabel();
         lblArq = new javax.swing.JLabel();
         lblArquitetura = new javax.swing.JLabel();
-        btnDisco = new javax.swing.JButton();
-        btnCPU1 = new javax.swing.JButton();
-        btnMemoria1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                userLogout(evt);
+            }
+        });
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-rx-monitoramento.png"))); // NOI18N
 
@@ -80,27 +85,6 @@ public class TelaInicial extends javax.swing.JFrame {
         lblArquitetura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblArquitetura.setText("...");
 
-        btnDisco.setText("DISCO");
-        btnDisco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDiscoActionPerformed(evt);
-            }
-        });
-
-        btnCPU1.setText("CPU");
-        btnCPU1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCPU1ActionPerformed(evt);
-            }
-        });
-
-        btnMemoria1.setText("MEMÓRIA");
-        btnMemoria1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMemoria1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,12 +99,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(lblSistemaOperacional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblArq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblArquitetura, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDisco, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCPU1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMemoria1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53))
+                .addGap(53, 399, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblLogo)
@@ -137,50 +116,32 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(lblUsuario))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblLogo)
-                        .addGap(78, 78, 78)
-                        .addComponent(btnCPU1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(116, 116, 116)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblUsuarioLogado)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblSO))
-                    .addComponent(btnMemoria1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblUsuarioLogado)
+                .addGap(18, 18, 18)
+                .addComponent(lblSO)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSistemaOperacional)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblArq)
-                    .addComponent(btnDisco, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblArq)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblArquitetura)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(688, 490));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscoActionPerformed
-        TelaDisco telaDisco = new TelaDisco();
-        telaDisco.setLocationRelativeTo(null);
-        telaDisco.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnDiscoActionPerformed
-
-    private void btnCPU1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCPU1ActionPerformed
-        TelaCpu telaCpu = new TelaCpu();
-        telaCpu.setLocationRelativeTo(null);
-        telaCpu.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnCPU1ActionPerformed
-
-    private void btnMemoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemoria1ActionPerformed
-        TelaMemoria telaMemoria = new TelaMemoria();
-        telaMemoria.setLocationRelativeTo(null);
-        telaMemoria.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnMemoria1ActionPerformed
+    private void userLogout(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_userLogout
+        ControllerUsuarioMaquina usuarioMaquina =  new ControllerUsuarioMaquina();
+        try {
+            usuarioMaquina.insertUsuarioMaquinaLogout();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_userLogout
 
     /**
      * @param args the command line arguments
@@ -218,9 +179,6 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCPU1;
-    private javax.swing.JButton btnDisco;
-    private javax.swing.JButton btnMemoria1;
     private javax.swing.JLabel lblArq;
     private javax.swing.JLabel lblArquitetura;
     private javax.swing.JLabel lblDescricao;

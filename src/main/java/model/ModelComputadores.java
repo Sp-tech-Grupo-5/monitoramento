@@ -10,11 +10,10 @@ import java.net.UnknownHostException;
  * @author raylane
  */
 public class ModelComputadores {
-    private String usuario;
-    private String sistemaOperacional;
-    private Integer arquitetura;
-    private String ip;
-    private String hostName;
+    private Integer id;
+    private String sistemaOp;
+    private Integer fkMaquina;
+    //private String hostName;
     
     Sistema sistema = new Sistema();
 
@@ -25,18 +24,51 @@ public class ModelComputadores {
     public String getSistemaOperacional() {
         return sistema.getSistemaOperacional();
     }
-
-    public Integer getArquitetura() {
-        return sistema.getArquitetura();
-    }
     
-    public String getIp() throws UnknownHostException{
-        return InetAddress.getLocalHost().getHostAddress();
-    }
-
     public String getHostName() throws UnknownHostException {
         return InetAddress.getLocalHost().getHostName();
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setSistemaOp(String sistemaOp) {
+        this.sistemaOp = sistemaOp;
+    }
+
+    public void setSistema(Sistema sistema) {
+        this.sistema = sistema;
+    }
+
+
+    public Integer getFkMaquina() {
+        return fkMaquina;
+    }
+
+    public void setFkMaquina(Integer fkMaquina) {
+        this.fkMaquina = fkMaquina;
+    }
+
+    @Override
+    public String toString() {
+        return "ModelComputadores{" + "id=" + id + ", sistemaOp=" + sistemaOp + ", sistema=" + sistema + '}';
+    }
+
+   
+
+    
+    
+
+    
+
+    
+    
+    
     
     
     

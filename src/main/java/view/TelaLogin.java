@@ -16,16 +16,15 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author grupo5- 2 ADSA
  */
 public class TelaLogin extends javax.swing.JFrame {
+
     ControllerHistoricoComponente controllerHistoricoComponente = new ControllerHistoricoComponente();
     ControllerProcessos controllerProcessos = new ControllerProcessos();
     ControllerComponentes controllerComponentes = new ControllerComponentes();
-
 
     /**
      * Creates new form TelaLogin
@@ -33,13 +32,11 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
         setIconImage(iconeTitulo);
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -153,24 +150,24 @@ public class TelaLogin extends javax.swing.JFrame {
         String Senha = new String(this.pwdLogin.getPassword());
 
         ControllerLogin validation = new ControllerLogin();
-        validation.validationData(Email, Senha);
 
-        if (validation.validationData(Email, Senha)) {
+        if (validation.validationDataLogin(Email, Senha)) {
+            System.out.println("Bem vindo ao RX-Monitoramento");
+            lblVerification.setText("Usuario Verificado");
             try {
-                System.out.println("Bem vindo ao RX-Monitoramento");
-                lblVerification.setText("Usuario Verificado");
                 controllerHistoricoComponente.insertHistoricoComponentes();
                 controllerProcessos.insertProcessos();
                 controllerComponentes.insertComponentes();
-                jButton(evt);
+
             } catch (UnknownHostException ex) {
                 Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
+            jButton(evt);
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Email/Senha inválido");
-            
-        }        
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

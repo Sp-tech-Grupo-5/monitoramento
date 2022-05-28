@@ -13,10 +13,8 @@ public class Connection {
     //Conexão
     public Connection(){
         dataSource= new  BasicDataSource();
-        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        //com.mysql.cj.jdbc.Driver
+        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");     
         dataSource.setUrl("jdbc:sqlserver://projeto-rxmonitoramento.database.windows.net:1433;database=bd-grupo5-rxmonitoramento;user=admin-rxmonitoramento@projeto-rxmonitoramento;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
-        //"jdbc:mysql://localhost:3306/rxmonitoramento"
         dataSource.setUsername("admin-rxmonitoramento");
         dataSource.setPassword("2ads@grupo5");
         

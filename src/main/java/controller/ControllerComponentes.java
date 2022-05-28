@@ -28,32 +28,38 @@ public class ControllerComponentes {
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
 
+    String selectInfo = "select maquina.id,maquina.sistemaOp from maquina WHERE maquina.hostname= ?";
+    String selectValidFk = "select componentes.fkMaquina from componentes join maquina on maquina.id=componentes.fkMaquina where hostname=?";
+    String insertComponentes = "INSERT INTO componentes(cpuCompPor,memoriaGb,discoGb,fkMaquina) values (?,?,?,?)";
+    String insertMaquina = "INSERT INTO maquina(sistemaOp,hostname) values (?,?)";
+
     public void insertComponentes() throws UnknownHostException {
-        List<ModelComputadores> infoComputadores;
-        infoComputadores = template.query("SELECT * FROM maquina WHERE hostname=?",
-                new BeanPropertyRowMapper<>(ModelComputadores.class),
+        List<ModelComputadores> infoComputadores = template.query(selectInfo,
+                new BeanPropertyRowMapper(ModelComputadores.class),
                 modelComputadores.getHostName());
-        
 
-        if (infoComputadores.isEmpty()) {
-            template.update("INSERT INTO componentes(cpuCompPor,memoriaGb,discoGb) values (?,?,?)",
-                    modelCpu.getfrequencia(),
-                    modelMemoria.getMemoriaTotal(),
-                    modelDiscos.getTamanhoTotal());
-            
-            template.update("INSERT INTO maquina(sistemaOp,hostname) values (?,?)",
-                    modelComputadores.getSistemaOperacional(),
-                    modelComputadores.getHostName());
+        List<ModelComputadores> infoFkComputador = template.query(selectValidFk,
+                new BeanPropertyRowMapper(ModelComputadores.class),
+                modelComputadores.getHostName());
 
-            System.out.println("-".repeat(72));
-            System.out.println("RX-MONITORAMENTO : Executando Controller Componentes. \n"
-                    + "Coletando e inserindo dados dos componentes da máquina");
+        if (!infoComputadores.isEmpty()) {
+            if (infoFkComputador.isEmpty()) {
+                System.out.println("RX-MONITORAMENTO : Computador já registrado no SQL Server");
+                template.update(insertComponentes,
+                        modelCpu.getfrequencia(),
+                        modelMemoria.getMemoriaTotal(),
+                        modelDiscos.getTamanhoTotal(),
+                        infoComputadores.get(0).getId());
 
+                System.out.println("-".repeat(72));
+                System.out.println("RX-MONITORAMENTO : Executando Controller Componentes. \n"
+                        + "Coletando e inserindo dados dos componentes da máquina");
+            } else {
+                System.out.println("RX-MONITORAMENTO : Componentes já registrados");
+            }
         } else {
-
-            System.out.println("RX-MONITORAMENTO : Computador já registrado");
+            System.out.println("RX-MONITORAMENTO :Computador não registrado. Entre em contato com o administrador!");
         }
 
     }
-
 }
