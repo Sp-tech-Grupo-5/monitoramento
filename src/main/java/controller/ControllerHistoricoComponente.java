@@ -36,29 +36,50 @@ public class ControllerHistoricoComponente {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public void insertHistoricoComponentes() throws UnknownHostException {
-        String selectIdComponentes = "select componentes.id from componentes join maquina on maquina.id=componentes.fkmaquina where maquina.hostname=?";
+        String selectIdComponentes = "SELECT componentes.id FROM componentes JOIN maquina ON maquina.id=componentes.fkmaquina WHERE maquina.hostname=?";
+        String insertHistComponente = "INSERT INTO historicoComponente(cpuHist,memoriaHist,dataHora,fkComponentes,discoHist) values (?,?,?,?,?)";
+        String existsFkComponentes = "SELECT * FROM agoraComponente WHERE fkComponentes=?";
+        String insertFkComponentes = "INSERT INTO agoraComponente(fkComponentes) VALUES (?)";
+        String insertHistComponenteSlack = "UPDATE agoraComponente SET cpuAgora=?,memoriaAgora=?,dataHora=?, discoAgora=? WHERE fkComponentes=? ";
         
           List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
                 new BeanPropertyRowMapper(ModelComputadores.class),
                 serviceComputadores.getHostName());
         
+          List<ModelComputadores> existsComponentes = template.query(existsFkComponentes,
+                   new BeanPropertyRowMapper(ModelComputadores.class),
+                   getIdComponentes.get(0).getId());
+          
+          if(existsComponentes.isEmpty()){
+              template.update(insertFkComponentes,
+                      getIdComponentes.get(0).getId());
+          }
+        
+        
+        
         Timer timer = new Timer();
         Integer delay = 5000;
         Integer interval = 10000;
-        String insertHistComponente = "INSERT INTO historicoComponente(cpuHist,memoriaHist,dataHora,fkComponentes,discoHist) values (?,?,?,?,?)";
-
+        
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Date date = new Date();
-
+                
                     template.update(insertHistComponente,
                             serviceCpu.emUso(),
                             serviceMemoria.getMemoriaEmUso(),
                             dateFormat.format(date),
                             getIdComponentes.get(0).getId(),
                             serviceDisco.getEmUso());
-                    
+                                                        
+                    template.update(insertHistComponenteSlack,
+                            serviceCpu.emUso(),
+                            serviceMemoria.getMemoriaEmUso(),
+                            dateFormat.format(date),
+                            serviceDisco.getEmUso(),
+                            getIdComponentes.get(0).getId()
+                            );
 
                     System.out.println("-".repeat(72));
                     System.out.println("RX-MONITORAMENTO : Executando Controller Historico Componentes. \n"

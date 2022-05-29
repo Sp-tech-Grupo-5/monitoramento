@@ -28,7 +28,7 @@ public class ControllerComponentes {
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
 
-    String selectInfo = "select maquina.id,maquina.sistemaOp from maquina WHERE maquina.hostname= ?";
+    String selectInfo = "SELECT maquina.id,maquina.sistemaOp from maquina WHERE maquina.hostname= ?";
     String selectValidFk = "select componentes.fkMaquina from componentes join maquina on maquina.id=componentes.fkMaquina where hostname=?";
     String insertComponentes = "INSERT INTO componentes(cpuCompPor,memoriaGb,discoGb,fkMaquina) values (?,?,?,?)";
     String insertMaquina = "INSERT INTO maquina(sistemaOp,hostname) values (?,?)";
