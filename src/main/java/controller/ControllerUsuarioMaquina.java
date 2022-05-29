@@ -23,6 +23,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class ControllerUsuarioMaquina {
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
+    
     ProcessosGroup processos = new ProcessosGroup();
     ModelComputadores serviceComputadores = new ModelComputadores();
 
@@ -53,6 +54,8 @@ public class ControllerUsuarioMaquina {
         template.update("UPDATE usuarioMaquina set estado='desligado', dataHoraLogout=? where fkMaquina=? and estado='ligado'",
                 dateFormat.format(dateLogout),
                 getIdComponentes.get(0).getId());
+        
+        System.out.println("Bye bye");
 
 
     }

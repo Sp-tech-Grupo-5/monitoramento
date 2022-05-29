@@ -45,24 +45,17 @@ public class TelaInicial extends javax.swing.JFrame {
     private void initComponents() {
 
         lblLogo = new javax.swing.JLabel();
-        lblDescricao = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         lblUsuarioLogado = new javax.swing.JLabel();
-        lblSO = new javax.swing.JLabel();
-        lblSistemaOperacional = new javax.swing.JLabel();
-        lblArq = new javax.swing.JLabel();
-        lblArquitetura = new javax.swing.JLabel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
                 userLogout(evt);
             }
         });
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-rx-monitoramento.png"))); // NOI18N
-
-        lblDescricao.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        lblDescricao.setText("DESCRIÇÃO DA MÁQUINA");
 
         lblUsuario.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblUsuario.setText("Usuário logado:");
@@ -71,20 +64,6 @@ public class TelaInicial extends javax.swing.JFrame {
         lblUsuarioLogado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUsuarioLogado.setText("...");
 
-        lblSO.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        lblSO.setText("Sistema Operacional:");
-
-        lblSistemaOperacional.setFont(new java.awt.Font("Liberation Sans", 0, 15)); // NOI18N
-        lblSistemaOperacional.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSistemaOperacional.setText("...");
-
-        lblArq.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        lblArq.setText("Arquitetura:");
-
-        lblArquitetura.setFont(new java.awt.Font("Liberation Sans", 0, 15)); // NOI18N
-        lblArquitetura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblArquitetura.setText("...");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,13 +71,8 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(90, 90, 90)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblUsuarioLogado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSistemaOperacional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblArq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblArquitetura, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                    .addComponent(lblUsuarioLogado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(53, 399, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -110,24 +84,13 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDescricao)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblUsuario))
+                    .addComponent(lblUsuario)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblLogo)
                         .addGap(116, 116, 116)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuarioLogado)
-                .addGap(18, 18, 18)
-                .addComponent(lblSO)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSistemaOperacional)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblArq)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblArquitetura)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(688, 490));
@@ -135,12 +98,12 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void userLogout(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_userLogout
-        ControllerUsuarioMaquina usuarioMaquina =  new ControllerUsuarioMaquina();
+     ControllerUsuarioMaquina usuarioMaquina = new ControllerUsuarioMaquina();
         try {
             usuarioMaquina.insertUsuarioMaquinaLogout();
         } catch (UnknownHostException ex) {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }       
     }//GEN-LAST:event_userLogout
 
     /**
@@ -179,12 +142,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblArq;
-    private javax.swing.JLabel lblArquitetura;
-    private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblLogo;
-    private javax.swing.JLabel lblSO;
-    private javax.swing.JLabel lblSistemaOperacional;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuarioLogado;
     // End of variables declaration//GEN-END:variables

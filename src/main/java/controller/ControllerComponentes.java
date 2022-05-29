@@ -28,10 +28,10 @@ public class ControllerComponentes {
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
 
-    String selectInfo = "SELECT maquina.id,maquina.sistemaOp from maquina WHERE maquina.hostname= ?";
-    String selectValidFk = "select componentes.fkMaquina from componentes join maquina on maquina.id=componentes.fkMaquina where hostname=?";
-    String insertComponentes = "INSERT INTO componentes(cpuCompPor,memoriaGb,discoGb,fkMaquina) values (?,?,?,?)";
-    String insertMaquina = "INSERT INTO maquina(sistemaOp,hostname) values (?,?)";
+    String selectInfo = "SELECT maquina.id,maquina.sistemaOp FROM maquina WHERE maquina.hostname= ?";
+    String selectValidFk = "SELECT componentes.fkMaquina FROM componentes JOIN maquina ON maquina.id=componentes.fkMaquina WHERE hostname=?";
+    String insertComponentes = "INSERT INTO componentes(cpuCompPor,memoriaGb,discoGb,fkMaquina) VALUES (?,?,?,?)";
+    String insertMaquina = "INSERT INTO maquina(sistemaOp,hostname) VALUES (?,?)";
 
     public void insertComponentes() throws UnknownHostException {
         List<ModelComputadores> infoComputadores = template.query(selectInfo,
