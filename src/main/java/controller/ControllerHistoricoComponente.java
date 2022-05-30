@@ -5,6 +5,7 @@
 package controller;
 
 import connection.Connection;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.ModelComputadores;
 import org.springframework.jdbc.core.JdbcTemplate;
 import model.ModelCpu;
@@ -36,11 +39,12 @@ public class ControllerHistoricoComponente {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public void insertHistoricoComponentes() throws UnknownHostException {
-        String selectIdComponentes = "SELECT componentes.id FROM componentes JOIN maquina ON maquina.id=componentes.fkmaquina WHERE maquina.hostname=?";
-        String insertHistComponente = "INSERT INTO historicoComponente(cpuHist,memoriaHist,dataHora,fkComponentes,discoHist) values (?,?,?,?,?)";
-        String existsFkComponentes = "SELECT * FROM agoraComponente WHERE fkComponentes=?";
-        String insertFkComponentes = "INSERT INTO agoraComponente(fkComponentes) VALUES (?)";
-        String insertHistComponenteSlack = "UPDATE agoraComponente SET cpuAgora=?,memoriaAgora=?,dataHora=?, discoAgora=? WHERE fkComponentes=? ";
+        var selectIdComponentes = "SELECT componentes.id FROM componentes JOIN maquina ON maquina.id=componentes.fkmaquina WHERE maquina.hostname=?";
+        var insertHistComponente = "INSERT INTO historicoComponente(cpuHist,memoriaHist,dataHora,fkComponentes,discoHist) values (?,?,?,?,?)";
+        var existsFkComponentes = "SELECT * FROM agoraComponente WHERE fkComponentes=?";
+        var insertFkComponentes = "INSERT INTO agoraComponente(fkComponentes) VALUES (?)";
+        var insertHistComponenteSlack = "UPDATE agoraComponente SET cpuAgora=?,memoriaAgora=?,dataHora=?, discoAgora=? WHERE fkComponentes=? ";
+        
         
           List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
                 new BeanPropertyRowMapper(ModelComputadores.class),
@@ -57,14 +61,14 @@ public class ControllerHistoricoComponente {
         
         
         
-        Timer timer = new Timer();
-        Integer delay = 5000;
-        Integer interval = 10000;
+       var timer = new Timer();
+       var delay = 5000;
+       var interval = 10000;
         
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Date date = new Date();
+               Date date = new Date();               
                 
                     template.update(insertHistComponente,
                             serviceCpu.emUso(),

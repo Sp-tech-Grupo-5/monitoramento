@@ -11,31 +11,37 @@ import com.github.britooo.looca.api.group.discos.Volume;
  *
  * @author raylane
  */
-public class ModelDiscos {
+public class ModelDiscos extends Model {
 
     private Double tamanhoTotal;
     private Double disponivel;
     private Double emUso;
+    private DiscosGroup discosGroup ;
 
-    DiscosGroup discosGroup = new DiscosGroup();
+    public ModelDiscos() {
+        super("disco lotando");
+        this.discosGroup = new DiscosGroup();
+        this.tamanhoTotal = (Double.valueOf(discosGroup.getVolumes()
+                                                       .get(0)
+                                                       .getTotal()))/1000000000;
+    }
+    
 
     public Double getTamanhoTotal() {
-        Double tamanhoTotal = Double.valueOf(discosGroup.getVolumes().get(0).getTotal());
-        tamanhoTotal /= 1000000000;
         return tamanhoTotal;
     }
 
     public Double getEmUso() {
         Double emUso = Double.valueOf(discosGroup.getVolumes().get(0).getDisponivel());
-        emUso /= 1000000000;
-        return emUso;
+        Double percentDisco = (emUso * 100)/tamanhoTotal;
+        notifyIfNecessary(percentDisco);
+        return emUso /= 1000000000;
     }
 
     public Double getDisponivel() {
         Double disponivel = this.getTamanhoTotal() - this.getEmUso();
         return disponivel;
     }
-    
     
 
 }

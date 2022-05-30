@@ -10,37 +10,25 @@ import com.github.britooo.looca.api.group.processador.Processador;
  *
  * @author raylane
  */
-public class ModelCpu {
-    private String nomeProcessador;
-    private Integer cpuLogicas;
-    private Integer cpuFisicas;
+public class ModelCpu extends Model{
+    
     private Double emUso;
     private Double frequencia;
+    private Processador processador;
+
+    public ModelCpu() {
+        super("cpu fritando");
+        this.processador = new Processador();
+        this.frequencia = Double.valueOf(processador.getFrequencia());
+    }
     
-   Processador processador = new Processador();
-
-    public String getNomeProcessador() {
-        return processador.getNome();
-    }
-
-    public Integer cpuLogicas(){
-        return processador.getNumeroCpusLogicas();
-    }
-
-    public Integer cpuFisicas(){
-        return processador.getNumeroCpusFisicas();
-    }
-
     public Double emUso(){
-        return processador.getUso();
+        this.emUso = processador.getUso();
+        this.notifyIfNecessary(emUso);
+        return emUso;
     }
     
     public Double getfrequencia (){
-        Double frequencia = Double.valueOf(processador.getFrequencia());
         return frequencia;
     }
-   
-   
-   
-    
 }
