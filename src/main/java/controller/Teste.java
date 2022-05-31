@@ -4,11 +4,9 @@
  */
 package controller;
 
-import com.github.britooo.looca.api.group.discos.Disco;
-import com.github.britooo.looca.api.group.processos.ProcessosGroup;
-import com.github.britooo.looca.api.group.sistema.Sistema;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
+import model.ModelDiscos;
+import model.ModelMemoria;
 
 /**
  *
@@ -16,13 +14,17 @@ import java.net.UnknownHostException;
  */
 public class Teste {
     public static void main(String[] args) throws UnknownHostException {
-        System.out.println("HOST NAME: " + InetAddress.getLocalHost().getHostName());
-        System.out.println("IP: " + InetAddress.getLocalHost().getHostAddress());
-         ProcessosGroup processos = new ProcessosGroup();
+        ModelDiscos discos = new ModelDiscos();
         
-        Sistema tempoDeAtividade = new Sistema();
+        System.out.println("Disco disponivel:  "+ discos.getDisponivel());
+        System.out.println("Disco em uso:  "+ discos.getEmUso());
         
-        System.out.println(processos.getProcessos().get(0));
+        
+        
+        ModelMemoria memoria = new ModelMemoria();
+        System.out.println("Memoria disponivel:  "+ memoria.getMemoriaDisponivel());
+        System.out.println("Memoria em uso:  "+ memoria.getMemoriaEmUso());
+        
         
         
     }

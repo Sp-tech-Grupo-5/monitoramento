@@ -13,7 +13,6 @@ public class ModelComputadores {
     private Integer id;
     private String sistemaOp;
     private Integer fkMaquina;
-    //private String hostName;
     
     Sistema sistema = new Sistema();
 

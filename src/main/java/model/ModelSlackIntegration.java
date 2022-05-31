@@ -22,7 +22,7 @@ import org.json.JSONObject;
  */
 public class ModelSlackIntegration {
     private static  HttpClient client = HttpClient.newHttpClient();
-    private static final  String url = "https://hooks.slack.com/services/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";
+    private static final  String url = "https://hooks.slack.com/services/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";
 
     public static  void notify(String message) {
         try{
