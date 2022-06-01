@@ -16,15 +16,6 @@ public class ModelUsuario {
     private String email;
     private String senha;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-
     public String getUsuario() {
         return usuario;
     }
@@ -47,6 +38,14 @@ public class ModelUsuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     

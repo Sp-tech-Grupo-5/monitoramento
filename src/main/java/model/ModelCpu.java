@@ -10,37 +10,40 @@ import com.github.britooo.looca.api.group.processador.Processador;
  *
  * @author raylane
  */
-public class ModelCpu {
-    private String nomeProcessador;
-    private Integer cpuLogicas;
-    private Integer cpuFisicas;
+public class ModelCpu extends Model{
+    
     private Double emUso;
     private Double frequencia;
+    private Processador processador;
+
+    public ModelCpu() {
+        super("Huuummmmm, gerente ! "
+                + " Parece que há um computador que não está processando muito bem ! :hushed: :computer: :fire:\n" +
+"Recomendamos que verifique os aplicativos e programas abertos no computador e deixe apenas o necessário.");
+        this.processador = new Processador();
+        this.frequencia = Double.valueOf(processador.getFrequencia());
+    }
     
-   Processador processador = new Processador();
-
-    public String getNomeProcessador() {
-        return processador.getNome();
-    }
-
-    public Integer cpuLogicas(){
-        return processador.getNumeroCpusLogicas();
-    }
-
-    public Integer cpuFisicas(){
-        return processador.getNumeroCpusFisicas();
-    }
-
     public Double emUso(){
-        return processador.getUso();
+        this.emUso = processador.getUso();
+        this.notifyIfNecessary(emUso);
+        this.notifyInactivity(emUso);
+        return emUso;
     }
     
     public Double getfrequencia (){
-        Double frequencia = Double.valueOf(processador.getFrequencia());
         return frequencia;
     }
-   
-   
-   
     
+    private void notifyInactivity(Double uso){
+        if(uso <= 10.0 && wasNotified == false){
+            var message = " Olá, sr(a) Gerente ! Parece que há computadores inativos. :sleeping: :mag:";
+            ModelSlackIntegration.notify(message);
+            wasNotified = true;
+         }
+        
+        if(uso > 10.0 && wasNotified == true){
+            wasNotified = false;
+        }
+    }
 }

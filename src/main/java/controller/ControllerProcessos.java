@@ -4,6 +4,7 @@
  */
 package controller;
 
+import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.processos.ProcessosGroup;
 import connection.Connection;
 import java.net.UnknownHostException;
@@ -28,17 +29,10 @@ public class ControllerProcessos {
     ProcessosGroup processos = new ProcessosGroup();
     ModelComputadores serviceComputadores= new ModelComputadores();
 
-    //Conexao MYSQL
-    Boolean mysql = true;
-    Connection connectionMysql = new Connection(mysql);
-    JdbcTemplate templateMysql = new JdbcTemplate(connectionMysql.getBasicDataSource());
-
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String selectIdComponentes = "select componentes.id from componentes join maquina on maquina.id=componentes.fkmaquina where maquina.hostname=?";
 
     public void insertProcessos() throws UnknownHostException {
-        
-        
           List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
                 new BeanPropertyRowMapper(ModelComputadores.class),
                 serviceComputadores.getHostName());
@@ -72,36 +66,4 @@ public class ControllerProcessos {
         }, delay, interval);
     }
     
-    public void insertProcessosMysql() throws UnknownHostException {
-        List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
-                new BeanPropertyRowMapper(ModelComputadores.class),
-                serviceComputadores.getHostName());
-        Timer timer = new Timer();
-        Integer delay = 5000;
-        Integer interval = 30000;
-
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("-".repeat(72));
-                System.out.println("RX-MONITORAMENTO : Executando Controller Processos. \n"
-                        + "Coletando e inserindo dados dos processos");
-                Date date = new Date();
-                Integer IdComponentes = getIdComponentes.get(0).getId();
-                
-                for (int i = 0; i < processos.getProcessos().size(); i++) {
-                        templateMysql.update("INSERT INTO processos(nomeProcesso,cpuHist,memoria,dataHora,fkComponentes)"
-                                + "values (?,?,?,?,?)",
-                                processos.getProcessos().get(i).getNome(),
-                                processos.getProcessos().get(i).getUsoCpu(),
-                                processos.getProcessos().get(i).getUsoMemoria(),
-                                dateFormat.format(date),
-                                 IdComponentes);
-
-                    }
-
-            }
-        }, delay, interval);
-    }
-
 }

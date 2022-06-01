@@ -21,16 +21,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author raylane
  */
 public class ControllerUsuarioMaquina {
-
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
+    
     ProcessosGroup processos = new ProcessosGroup();
     ModelComputadores serviceComputadores = new ModelComputadores();
 
-    //Conexao MYSQL
-    Boolean mysql = true;
-    Connection connectionMysql = new Connection(mysql);
-    JdbcTemplate templateMysql = new JdbcTemplate(connectionMysql.getBasicDataSource());
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String selectIdMaquina = "select maquina.id from maquina where hostname=?";
@@ -41,15 +37,11 @@ public class ControllerUsuarioMaquina {
                 serviceComputadores.getHostName());
 
         Date dateLogin = new Date();
-        template.update("INSERT INTO usuarioMaquina (fkMaquina,fkUsuario,dataHoraLogin, estado) values (?,?,?,1)",
+        template.update("INSERT INTO usuarioMaquina (fkMaquina,fkUsuario,dataHoraLogin, estado) values (?,?,?,'ligado')",
                 getIdComponentes.get(0).getId(),
                 getUser.get(0).getId(),
-                dateLogin);
+                dateFormat.format(dateLogin));
 
-       /* templateMysql.update("INSERT INTO usuarioMaquina (estado,fkMaquina,fkUsuario,dataHoraLogin) values (1,?,?,?)",
-                getIdComponentes.get(0).getId(),
-                getUser.get(0).getId(),
-                dateFormat.format(dateLogin));*/
 
     }
 
@@ -59,12 +51,14 @@ public class ControllerUsuarioMaquina {
                 serviceComputadores.getHostName());
 
         Date dateLogout = new Date();
-        template.update("UPDATE usuarioMaquina set estado=0, dataHoraLogout=? where fkMaquina=?",
-                dateLogout,
-                getIdComponentes.get(0).getId());
-
-       /* templateMysql.update("UPDATE usuarioMaquina set estado=0, dataHoraLogout=? where fkMaquina=?",
+        template.update("UPDATE usuarioMaquina set estado='desligado', dataHoraLogout=? where fkMaquina=? and estado='ligado'",
                 dateFormat.format(dateLogout),
-                getIdComponentes.get(0).getId());*/
+                getIdComponentes.get(0).getId());
+        
+        System.out.println("Bye bye");
+
+
     }
+    
+    
 }

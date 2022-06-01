@@ -23,6 +23,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
  *
  * @author raylane
  */
+
 public class ControllerHistoricoComponente {
 
     ModelCpu serviceCpu = new ModelCpu();
@@ -32,43 +33,54 @@ public class ControllerHistoricoComponente {
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
 
-    //Conexao MYSQL
-    Boolean mysql = true;
-    Connection connectionMysql = new Connection(mysql);
-    JdbcTemplate templateMysql = new JdbcTemplate(connectionMysql.getBasicDataSource());
-
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public void insertHistoricoComponentes() throws UnknownHostException {
-        String selectIdComponentes = "select componentes.id from componentes join maquina on maquina.id=componentes.fkmaquina where maquina.hostname=?";
+        var selectIdComponentes = "SELECT componentes.id FROM componentes JOIN maquina ON maquina.id=componentes.fkmaquina WHERE maquina.hostname=?";
+        var insertHistComponente = "INSERT INTO historicoComponente(cpuHist,memoriaHist,dataHora,fkComponentes,discoHist) values (?,?,?,?,?)";
+        var existsFkComponentes = "SELECT * FROM agoraComponente WHERE fkComponentes=?";
+        var insertFkComponentes = "INSERT INTO agoraComponente(fkComponentes) VALUES (?)";
+        var insertHistComponenteSlack = "UPDATE agoraComponente SET cpuAgora=?,memoriaAgora=?,dataHora=?, discoAgora=? WHERE fkComponentes=? ";
+        
         
           List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
                 new BeanPropertyRowMapper(ModelComputadores.class),
                 serviceComputadores.getHostName());
         
-        Timer timer = new Timer();
-        Integer delay = 5000;
-        Integer interval = 10000;
-        String insertHistComponente = "INSERT INTO historicoComponente(cpuHist,memoriaHist,dataHora,fkComponentes,discoHist) values (?,?,?,?,?)";
-
+          List<ModelComputadores> existsComponentes = template.query(existsFkComponentes,
+                   new BeanPropertyRowMapper(ModelComputadores.class),
+                   getIdComponentes.get(0).getId());
+          
+          if(existsComponentes.isEmpty()){
+              template.update(insertFkComponentes,
+                      getIdComponentes.get(0).getId());
+          }
+        
+        
+        
+       var timer = new Timer();
+       var delay = 5000;
+       var interval = 10000;
+        
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Date date = new Date();
-
+               Date date = new Date();               
+                
                     template.update(insertHistComponente,
                             serviceCpu.emUso(),
                             serviceMemoria.getMemoriaEmUso(),
                             dateFormat.format(date),
                             getIdComponentes.get(0).getId(),
                             serviceDisco.getEmUso());
-                    
-                    templateMysql.update(insertHistComponente,
+                                                        
+                    template.update(insertHistComponenteSlack,
                             serviceCpu.emUso(),
                             serviceMemoria.getMemoriaEmUso(),
                             dateFormat.format(date),
-                            getIdComponentes.get(0).getId(),
-                            serviceDisco.getEmUso());
+                            serviceDisco.getEmUso(),
+                            getIdComponentes.get(0).getId()
+                            );
 
                     System.out.println("-".repeat(72));
                     System.out.println("RX-MONITORAMENTO : Executando Controller Historico Componentes. \n"

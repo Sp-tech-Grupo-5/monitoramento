@@ -6,21 +6,27 @@ import com.github.britooo.looca.api.group.memoria.Memoria;
  *
  * @author raylane
  */
-public class ModelMemoria {
+public class ModelMemoria extends Model{
 
     private Double memoriaTotal;
-    private Double memoriaEmUso;
-    private Double memoriaDisponivel;
+    private Memoria memoria;
 
-    Memoria memoria = new Memoria();
+    public ModelMemoria() {
+        super("memoria fritando");
+        this.memoria = new Memoria(); 
+        this.memoriaTotal = Double.valueOf(memoria.getTotal()/1000000000.0);
+        
+    }
+    
 
     public Double getMemoriaTotal() {
-        Double memoriaTotalConvertida = Double.valueOf(memoria.getTotal()/1000000000.0);
-        return memoriaTotalConvertida;
+        return memoriaTotal;
     }
 
     public Double getMemoriaEmUso() {
         Double memoriaUsoConvertida = Double.valueOf(memoria.getEmUso()/1000000000.0);
+        Double percentMemory = (memoriaUsoConvertida * 100)/memoriaTotal;
+        notifyIfNecessary(percentMemory);
         return memoriaUsoConvertida;
     }
 
@@ -28,5 +34,7 @@ public class ModelMemoria {
         Double memoriaDisponivelConvertida = Double.valueOf(memoria.getDisponivel()/1000000000.0);
         return memoriaDisponivelConvertida;
     }
+    
+
 
 }
