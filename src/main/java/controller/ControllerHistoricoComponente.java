@@ -5,7 +5,6 @@
 package controller;
 
 import connection.Connection;
-import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,8 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.ModelComputadores;
 import org.springframework.jdbc.core.JdbcTemplate;
 import model.ModelCpu;

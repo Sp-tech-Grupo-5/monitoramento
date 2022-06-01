@@ -1,27 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import controller.ControllerComponentes;
-import controller.ControllerLogin;
-import javax.swing.JOptionPane;
 import controller.ControllerHistoricoComponente;
+import controller.ControllerLogin;
 import controller.ControllerProcessos;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /**
  *
- * @author grupo5- 2 ADSA
+ * @author Matheus Mattos e Raylane Fernandes
  */
 public class TelaLogin extends javax.swing.JFrame {
-
     ControllerHistoricoComponente controllerHistoricoComponente = new ControllerHistoricoComponente();
     ControllerProcessos controllerProcessos = new ControllerProcessos();
     ControllerComponentes controllerComponentes = new ControllerComponentes();
@@ -31,9 +28,11 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
-        setLocationRelativeTo(null);
+        //Colocando cor no fundo da página;
+        getContentPane().setBackground(Color.decode("#080425"));
 
-        URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
+        // Variaveis para adicionar "favicon" na barra superior da página;
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("tela-login-rxmonitoramento.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
         setIconImage(iconeTitulo);
     }
@@ -47,126 +46,100 @@ public class TelaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageLogo = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabelLogo = new javax.swing.JLabel();
+        jButtonAcessar = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
-        lblEmail = new javax.swing.JLabel();
         pwdLogin = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        lblSenha = new javax.swing.JLabel();
-        lblVerification = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelLogo1 = new javax.swing.JLabel();
 
-        imageLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-rx-monitoramento.png"))); // NOI18N
+        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tela-login-rxmonitoramento.png"))); // NOI18N
+        jLabelLogo.setRequestFocusEnabled(false);
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(8, 4, 37));
+        getContentPane().setLayout(null);
+
+        jButtonAcessar.setBackground(new java.awt.Color(79, 80, 101));
+        jButtonAcessar.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 12)); // NOI18N
+        jButtonAcessar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAcessar.setText("ENTRAR");
+        jButtonAcessar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAcessarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAcessar);
+        jButtonAcessar.setBounds(160, 400, 120, 30);
+
+        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
+        txtEmail.setForeground(new java.awt.Color(0, 0, 0));
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
             }
         });
+        getContentPane().add(txtEmail);
+        txtEmail.setBounds(120, 260, 200, 40);
 
-        lblEmail.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        lblEmail.setText("Email:");
+        pwdLogin.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(pwdLogin);
+        pwdLogin.setBounds(120, 330, 200, 40);
 
-        pwdLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pwdLoginActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("senha");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(120, 310, 200, 17);
 
-        jButton1.setText("ENTRAR");
-        jButton1.setActionCommand("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel2.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("e-mail ");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(120, 240, 200, 17);
 
-        lblSenha.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        lblSenha.setText("Senha:");
+        jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tela-login-rxmonitoramento.png"))); // NOI18N
+        jLabelLogo1.setRequestFocusEnabled(false);
+        getContentPane().add(jLabelLogo1);
+        jLabelLogo1.setBounds(20, 0, 450, 480);
 
-        lblVerification.setText("...");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addComponent(imageLogo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(213, 213, 213)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSenha)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblEmail)
-                                .addComponent(txtEmail)
-                                .addComponent(pwdLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)))))
-                .addContainerGap(70, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblVerification)
-                .addGap(53, 53, 53))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(imageLogo)
-                .addGap(27, 27, 27)
-                .addComponent(lblEmail)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(lblSenha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pwdLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblVerification)
-                .addGap(9, 9, 9))
-        );
-
-        setSize(new java.awt.Dimension(516, 468));
+        setSize(new java.awt.Dimension(447, 529));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void pwdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pwdLoginActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcessarActionPerformed
         String Email = this.txtEmail.getText();
         String Senha = new String(this.pwdLogin.getPassword());
 
         ControllerLogin validation = new ControllerLogin();
+        TelaInit telaInit = new TelaInit();
 
         if (validation.validationDataLogin(Email, Senha)) {
             System.out.println("Bem vindo ao RX-Monitoramento");
-            lblVerification.setText("Usuario Verificado");
+            System.out.println("Usuario Verificado");
             try {
                 controllerHistoricoComponente.insertHistoricoComponentes();
                 controllerProcessos.insertProcessos();
                 controllerComponentes.insertComponentes();
+                telaInit.setVisible(true);
+                dispose();
 
             } catch (UnknownHostException ex) {
-                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(view.TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
-            jButton(evt);
+            
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Email/Senha inválido");
 
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAcessarActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,29 +167,25 @@ public class TelaLogin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaLogin().setVisible(true);
             }
-
         });
     }
 
-    private void jButton(java.awt.event.ActionEvent evt) {
-        TelaInicial telaInicial = new TelaInicial();
-        telaInicial.setLocationRelativeTo(null);
-        telaInicial.setVisible(true);
-        dispose();
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel imageLogo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblSenha;
-    private javax.swing.JLabel lblVerification;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButtonAcessar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelLogo;
+    private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPasswordField pwdLogin;
     private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
