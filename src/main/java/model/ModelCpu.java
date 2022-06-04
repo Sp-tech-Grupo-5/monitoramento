@@ -6,6 +6,7 @@ package model;
 
 import com.github.britooo.looca.api.group.processador.Processador;
 
+
 /**
  *
  * @author raylane
@@ -16,10 +17,11 @@ public class ModelCpu extends Model{
     private Double frequencia;
     private Processador processador;
 
+    
     public ModelCpu() {
         super("Huuummmmm, gerente ! "
                 + " Parece que há um computador que não está processando muito bem ! :hushed: :computer: :fire:\n" +
-"Recomendamos que verifique os aplicativos e programas abertos no computador e deixe apenas o necessário.");
+"Recomendamos que verifique os aplicativos e programas abertos no computador e deixe apenas o necessário.");      
         this.processador = new Processador();
         this.frequencia = Double.valueOf(processador.getFrequencia());
     }
@@ -32,6 +34,7 @@ public class ModelCpu extends Model{
     }
     
     public Double getfrequencia (){
+       
         return frequencia;
     }
     

@@ -9,7 +9,7 @@ import java.util.List;
 import model.ModelUsuario;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import logs.Logs;
 /**
  *
  * @author raylane
@@ -20,6 +20,8 @@ public class ControllerLogin {
     JdbcTemplate connect = new JdbcTemplate(config.getBasicDataSource());
     
     ControllerUsuarioMaquina usuarioMaquina = new ControllerUsuarioMaquina();
+    Logs logs = new Logs();
+    
     
     public Boolean validationDataLogin(String email, String senha) {
         Boolean dataValid = false;
@@ -30,6 +32,7 @@ public class ControllerLogin {
                 if (!getUser.isEmpty()) {
                     dataValid = true;
                     usuarioMaquina.insertUsuarioMaquinaLogin(getUser);
+                    logs.captarLogs("    - Login efetuado com sucesso!");
                 }
                 
         } catch (Exception e) {

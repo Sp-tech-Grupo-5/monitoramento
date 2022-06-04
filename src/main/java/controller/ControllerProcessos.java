@@ -17,7 +17,7 @@ import java.util.TimerTask;
 import model.ModelComputadores;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import logs.Logs;
 /**
  *
  * @author raylane
@@ -28,7 +28,7 @@ public class ControllerProcessos {
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
     ProcessosGroup processos = new ProcessosGroup();
     ModelComputadores serviceComputadores= new ModelComputadores();
-
+    Logs logs = new Logs();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String selectIdComponentes = "select componentes.id from componentes join maquina on maquina.id=componentes.fkmaquina where maquina.hostname=?";
 
@@ -59,7 +59,10 @@ public class ControllerProcessos {
                                 processos.getProcessos().get(i).getUsoMemoria(),
                                 dateFormat.format(date),
                                 IdComponentes);
-
+                                
+                  logs.captarLogs(String.format("    - Registrando processos de uso da cpu: %.3f", processos.getProcessos().get(i).getUsoCpu()));
+                  logs.captarLogs(String.format("    - Registrando processos de uso da memória: %.3f", processos.getProcessos().get(i).getUsoMemoria()));
+                  
                     }
 
             }

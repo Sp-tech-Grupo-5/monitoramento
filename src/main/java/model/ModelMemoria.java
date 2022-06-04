@@ -1,7 +1,7 @@
 package model;
 
 import com.github.britooo.looca.api.group.memoria.Memoria;
-
+import logs.Logs;
 /**
  *
  * @author raylane
@@ -10,7 +10,7 @@ public class ModelMemoria extends Model{
 
     private Double memoriaTotal;
     private Memoria memoria;
-
+    Logs logs = new Logs();
     public ModelMemoria() {
         super("memoria fritando");
         this.memoria = new Memoria(); 
@@ -20,6 +20,7 @@ public class ModelMemoria extends Model{
     
 
     public Double getMemoriaTotal() {
+        logs.captarLogs(String.format(" -   Memória total: %.2f", memoriaTotal));
         return memoriaTotal;
     }
 

@@ -18,7 +18,7 @@ import model.ModelCpu;
 import model.ModelDiscos;
 import model.ModelMemoria;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-
+import logs.Logs;
 /**
  *
  * @author raylane
@@ -32,7 +32,7 @@ public class ControllerHistoricoComponente {
     ModelComputadores serviceComputadores = new ModelComputadores(); 
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
-
+    Logs logs = new Logs();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public void insertHistoricoComponentes() throws UnknownHostException {
@@ -85,7 +85,7 @@ public class ControllerHistoricoComponente {
                     System.out.println("-".repeat(72));
                     System.out.println("RX-MONITORAMENTO : Executando Controller Historico Componentes. \n"
                             + "Coletando e inserindo dados em tempo real dos componentes da máquina");
-
+ logs.captarLogs("coletando e inserindo dados em tempo real dos componentes da máquina.");
             }
         }, delay, interval);
     }
