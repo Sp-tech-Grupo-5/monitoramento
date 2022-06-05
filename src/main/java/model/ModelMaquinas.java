@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
  *
  * @author raylane
  */
-public class ModelComputadores {
+public class ModelMaquinas {
     private Integer id;
     private String sistemaOp;
     private Integer fkMaquina;

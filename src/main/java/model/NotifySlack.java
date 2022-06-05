@@ -8,11 +8,11 @@ package model;
  *
  * @author raylane
  */
-public class  Model {
+public class  NotifySlack {
     protected boolean wasNotified = false;
     protected String message;
 
-    public Model(String message) {
+    public NotifySlack(String message) {
         this.message = message;
     }
     
