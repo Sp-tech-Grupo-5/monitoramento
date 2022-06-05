@@ -37,6 +37,7 @@ public class ControllerLogin {
                 
         } catch (Exception e) {
             System.err.println(e);
+            logs.captarLogs("   - Erro ao efetuar o login!");
         }
         return dataValid;
     }

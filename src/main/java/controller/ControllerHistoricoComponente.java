@@ -42,6 +42,8 @@ public class ControllerHistoricoComponente {
         var insertFkComponentes = "INSERT INTO agoraComponente(fkComponentes) VALUES (?)";
         var insertHistComponenteSlack = "UPDATE agoraComponente SET cpuAgora=?,memoriaAgora=?,dataHora=?, discoAgora=? WHERE fkComponentes=? ";
         
+                        
+        
         
           List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
                 new BeanPropertyRowMapper(ModelComputadores.class),
@@ -54,6 +56,7 @@ public class ControllerHistoricoComponente {
           if(existsComponentes.isEmpty()){
               template.update(insertFkComponentes,
                       getIdComponentes.get(0).getId());
+              
           }
         
         
@@ -66,7 +69,7 @@ public class ControllerHistoricoComponente {
             @Override
             public void run() {
                Date date = new Date();               
-                
+                   
                     template.update(insertHistComponente,
                             serviceCpu.emUso(),
                             serviceMemoria.getMemoriaEmUso(),
@@ -81,13 +84,28 @@ public class ControllerHistoricoComponente {
                             serviceDisco.getEmUso(),
                             getIdComponentes.get(0).getId()
                             );
-
+                   
+                Double discoDisponivel = serviceDisco.getDisponivel();
+                Double memoriaTotal = serviceMemoria.getMemoriaTotal();
+                Double memoriaDisponivel = serviceMemoria.getMemoriaDisponivel();
+                Double frequencia = serviceCpu.getfrequencia();
+                Double tamanhoTotal = serviceDisco.getTamanhoTotal();
+                
+                logs.captarLogs(String.format("    - Coletando sistema operacional da máquina: %s", serviceComputadores.getSistemaOperacional()));
+                logs.captarLogs(String.format("    - Registrando disco disponivel: %.2f", discoDisponivel));
+                logs.captarLogs(String.format("    - Registrando memória total: %.2f", memoriaTotal));
+                logs.captarLogs(String.format("    - Registrando memória Disponível: %.2f", memoriaDisponivel));
+                logs.captarLogs(String.format("    - Registrando a frenquência da cpu: %.1f", frequencia));
+                logs.captarLogs(String.format("    - Registrando tamanho total do disco: %.2f", tamanhoTotal));
+                
                     System.out.println("-".repeat(72));
                     System.out.println("RX-MONITORAMENTO : Executando Controller Historico Componentes. \n"
                             + "Coletando e inserindo dados em tempo real dos componentes da máquina");
- logs.captarLogs("coletando e inserindo dados em tempo real dos componentes da máquina.");
+                    logs.captarLogs("    - Coletando e inserindo dados em tempo real dos componentes da máquina.");
+ 
             }
         }, delay, interval);
+        
     }
 
 }

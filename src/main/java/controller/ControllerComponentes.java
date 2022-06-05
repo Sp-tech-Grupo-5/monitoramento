@@ -7,6 +7,7 @@ package controller;
 import connection.Connection;
 import java.net.UnknownHostException;
 import java.util.List;
+import logs.Logs;
 import model.ModelComputadores;
 import model.ModelCpu;
 import model.ModelDiscos;
@@ -24,7 +25,7 @@ public class ControllerComponentes {
     ModelMemoria modelMemoria = new ModelMemoria();
     ModelDiscos modelDiscos = new ModelDiscos();
     ModelComputadores modelComputadores = new ModelComputadores();
-
+    Logs logs = new Logs();
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
 
@@ -45,6 +46,7 @@ public class ControllerComponentes {
         if (!infoComputadores.isEmpty()) {
             if (infoFkComputador.isEmpty()) {
                 System.out.println("RX-MONITORAMENTO : Computador já registrado no SQL Server");
+                logs.captarLogs("   - Computador já registrado no SQL Server");
                 template.update(insertComponentes,
                         modelCpu.getfrequencia(),
                         modelMemoria.getMemoriaTotal(),
@@ -59,6 +61,7 @@ public class ControllerComponentes {
             }
         } else {
             System.out.println("RX-MONITORAMENTO :Computador não registrado. Entre em contato com o administrador!");
+            logs.captarLogs("   - Computador não registrado. Entre em contato com o administrador!");
         }
 
     }

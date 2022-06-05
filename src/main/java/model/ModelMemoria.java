@@ -20,7 +20,6 @@ public class ModelMemoria extends Model{
     
 
     public Double getMemoriaTotal() {
-        logs.captarLogs(String.format(" -   Memória total: %.2f", memoriaTotal));
         return memoriaTotal;
     }
 

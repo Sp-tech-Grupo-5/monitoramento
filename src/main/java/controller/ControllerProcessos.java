@@ -36,7 +36,8 @@ public class ControllerProcessos {
           List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
                 new BeanPropertyRowMapper(ModelComputadores.class),
                 serviceComputadores.getHostName());
-          
+                logs.captarLogs(String.format("    - Coletando o hostname da máquina: %s", serviceComputadores.getHostName()));
+               
         Timer timer = new Timer();
         Integer delay = 5000;
         Integer interval = 30000;
@@ -52,6 +53,7 @@ public class ControllerProcessos {
                 Integer IdComponentes = getIdComponentes.get(0).getId();
                 
                 for (int i = 0; i < processos.getProcessos().size(); i++) {
+                     
                         template.update("INSERT INTO processos(nomeProcesso,cpuHist,memoria,dataHora,fkComponentes)"
                                 + "values (?,?,?,?,?)",
                                 processos.getProcessos().get(i).getNome(),
@@ -60,8 +62,9 @@ public class ControllerProcessos {
                                 dateFormat.format(date),
                                 IdComponentes);
                                 
-                  logs.captarLogs(String.format("    - Registrando processos de uso da cpu: %.3f", processos.getProcessos().get(i).getUsoCpu()));
-                  logs.captarLogs(String.format("    - Registrando processos de uso da memória: %.3f", processos.getProcessos().get(i).getUsoMemoria()));
+                  logs.captarLogs(String.format("    - Registrando processos de uso da cpu: %.2f", processos.getProcessos().get(i).getUsoCpu()));
+                  logs.captarLogs(String.format("    - Registrando processos de uso da memória: %.2f", processos.getProcessos().get(i).getUsoMemoria()));
+                  logs.captarLogs(String.format("    - Coletando o nome de usuário: %s", serviceComputadores.getUsuario()));
                   
                     }
 
