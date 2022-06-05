@@ -17,7 +17,7 @@ import java.util.TimerTask;
 import model.ModelMaquinas;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import logs.Logs;
 /**
  *
  * @author raylane
@@ -28,7 +28,7 @@ public class ControllerProcessos {
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
     ProcessosGroup processos = new ProcessosGroup();
     ModelMaquinas serviceComputadores= new ModelMaquinas();
-
+    Logs logs = new Logs();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String selectIdComponentes = "select componentes.id from componentes join maquina on maquina.id=componentes.fkmaquina where maquina.hostname=?";
 
@@ -36,7 +36,8 @@ public class ControllerProcessos {
           List<ModelMaquinas> getIdComponentes = template.query(selectIdComponentes,
                 new BeanPropertyRowMapper(ModelMaquinas.class),
                 serviceComputadores.getHostName());
-          
+                logs.captarLogs(String.format("    - Coletando o hostname da máquina: %s", serviceComputadores.getHostName()));
+               
         Timer timer = new Timer();
         Integer delay = 5000;
         Integer interval = 60000;
@@ -44,14 +45,14 @@ public class ControllerProcessos {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("-".repeat(72));
-                System.out.println("RX-MONITORAMENTO : Executando Controller Processos. \n"
-                        + "Coletando e inserindo dados dos processos");
+                System.out.println("-".repeat(36) + "[RX-MONITORAMENTO]" + "-".repeat(36));
+                System.out.println("Coletando e inserindo dados dos processos");
                 Date date = new Date();
                 
                 Integer IdComponentes = getIdComponentes.get(0).getId();
                 
                 for (int i = 0; i < processos.getProcessos().size(); i++) {
+                     
                         template.update("INSERT INTO processos(nomeProcesso,cpuHist,memoria,dataHora,fkComponentes)"
                                 + "values (?,?,?,?,?)",
                                 processos.getProcessos().get(i).getNome(),
@@ -59,7 +60,11 @@ public class ControllerProcessos {
                                 processos.getProcessos().get(i).getUsoMemoria(),
                                 dateFormat.format(date),
                                 IdComponentes);
-
+                                
+                  logs.captarLogs(String.format("    - Registrando processos de uso da cpu: %.2f", processos.getProcessos().get(i).getUsoCpu()));
+                  logs.captarLogs(String.format("    - Registrando processos de uso da memória: %.2f", processos.getProcessos().get(i).getUsoMemoria()));
+                  logs.captarLogs(String.format("    - Coletando o nome de usuário: %s", serviceComputadores.getUsuario()));
+                  
                     }
 
             }

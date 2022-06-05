@@ -18,7 +18,7 @@ import model.ModelCpu;
 import model.ModelDiscos;
 import model.ModelMemoria;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-
+import logs.Logs;
 /**
  *
  * @author raylane
@@ -32,7 +32,7 @@ public class ControllerHistoricoComponente {
     ModelMaquinas serviceComputadores = new ModelMaquinas(); 
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
-
+    Logs logs = new Logs();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public void insertHistoricoComponentes() throws UnknownHostException {
@@ -41,6 +41,8 @@ public class ControllerHistoricoComponente {
         var existsFkComponentes = "SELECT id FROM agoraComponente WHERE fkComponentes=?";
         var insertFkComponentes = "INSERT INTO agoraComponente(fkComponentes) VALUES (?)";
         var insertHistComponenteSlack = "UPDATE agoraComponente SET cpuAgora=?,memoriaAgora=?,dataHora=?, discoAgora=? WHERE fkComponentes=? ";
+        
+                        
         
         
           List<ModelMaquinas> getIdComponentes = template.query(selectIdComponentes,
@@ -54,6 +56,7 @@ public class ControllerHistoricoComponente {
           if(existsComponentes.isEmpty()){
               template.update(insertFkComponentes,
                       getIdComponentes.get(0).getId());
+              
           }
         
         
@@ -66,7 +69,7 @@ public class ControllerHistoricoComponente {
             @Override
             public void run() {
                Date date = new Date();               
-                
+                   
                     template.update(insertHistComponente,
                             serviceCpu.emUso(),
                             serviceMemoria.getMemoriaEmUso(),
@@ -81,13 +84,27 @@ public class ControllerHistoricoComponente {
                             serviceDisco.getEmUso(),
                             getIdComponentes.get(0).getId()
                             );
-
-                    System.out.println("-".repeat(72));
-                    System.out.println("RX-MONITORAMENTO : Executando Controller Historico Componentes. \n"
-                            + "Coletando e inserindo dados em tempo real dos componentes da máquina");
-
+                   
+                Double discoDisponivel = serviceDisco.getDisponivel();
+                Double memoriaTotal = serviceMemoria.getMemoriaTotal();
+                Double memoriaDisponivel = serviceMemoria.getMemoriaDisponivel();
+                Double frequencia = serviceCpu.getFrequencia();
+                Double tamanhoTotal = serviceDisco.getTamanhoTotal();
+                
+                logs.captarLogs(String.format("    - Coletando sistema operacional da máquina: %s", serviceComputadores.getSistemaOperacional()));
+                logs.captarLogs(String.format("    - Registrando disco disponivel: %.2f", discoDisponivel));
+                logs.captarLogs(String.format("    - Registrando memória total: %.2f", memoriaTotal));
+                logs.captarLogs(String.format("    - Registrando memória Disponível: %.2f", memoriaDisponivel));
+                logs.captarLogs(String.format("    - Registrando a frenquência da cpu: %.1f", frequencia));
+                logs.captarLogs(String.format("    - Registrando tamanho total do disco: %.2f", tamanhoTotal));
+                
+                    System.out.println("-".repeat(36) + "[RX-MONITORAMENTO]" + "-".repeat(36));
+                    System.out.println("Coletando e inserindo dados em tempo real dos componentes da máquina");
+                    logs.captarLogs("    - Coletando e inserindo dados em tempo real dos componentes da máquina.");
+ 
             }
         }, delay, interval);
+        
     }
 
 }

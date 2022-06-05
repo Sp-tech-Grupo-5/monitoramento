@@ -5,18 +5,12 @@ import controller.ControllerHistoricoComponente;
 import controller.ControllerLogin;
 import controller.ControllerProcessos;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -129,27 +123,21 @@ public class TelaLogin extends javax.swing.JFrame {
        
         String Email = this.txtEmail.getText();
         String Senha = new String(this.pwdLogin.getPassword());
-      
-        
-
+     
         //new Thread(new Loading(this)).start();
-
-        
 
         ControllerLogin validation = new ControllerLogin();
         TelaInit telaInit = new TelaInit();
 
         if (validation.validationDataLogin(Email, Senha)) {
-            System.out.println("Bem vindo ao RX-Monitoramento");
-            System.out.println("Usuario Verificado");
+            System.out.println("[RX-MONITORAMENTO]: Seja Bem-vindo ! ");
+            System.out.println("[RX-MONITORAMENTO]: Usuário verificado");
 
             try {
                 controllerComponentes.insertComponentes();
                 controllerHistoricoComponente.insertHistoricoComponentes();
                 controllerProcessos.insertProcessos();
                 telaInit.setVisible(true);
-                
-                
                 dispose();
 
             } catch (UnknownHostException ex) {

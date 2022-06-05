@@ -6,7 +6,7 @@ package model;
 
 import com.github.britooo.looca.api.group.discos.DiscosGroup;
 import com.github.britooo.looca.api.group.discos.Volume;
-
+import logs.Logs;
 /**
  *
  * @author raylane
@@ -15,7 +15,8 @@ public class ModelDiscos extends NotifySlack {
 
     private Double tamanhoTotal;
     private DiscosGroup discosGroup;
-
+    
+    Logs logs = new Logs();
     public ModelDiscos() {
         super("Hey, Analista ! "
                 + "Há máquinas no setor de atendimento que estão chegando no seu limite de armazenamento! :astonished: :computer:");

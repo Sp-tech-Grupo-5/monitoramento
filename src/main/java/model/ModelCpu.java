@@ -6,6 +6,7 @@ package model;
 
 import com.github.britooo.looca.api.group.processador.Processador;
 
+
 /**
  *
  * @author raylane
@@ -16,6 +17,7 @@ public class ModelCpu extends NotifySlack {
     private Double frequencia;
     private Processador processador;
 
+    
     public ModelCpu() {
         super("Huuummmmm, analista ! "
                 + " Parece que há um computador que não está processando muito bem ! :hushed: :computer: :fire:\n"

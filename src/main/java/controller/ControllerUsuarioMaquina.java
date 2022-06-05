@@ -55,7 +55,7 @@ public class ControllerUsuarioMaquina {
                 dateFormat.format(dateLogout),
                 getIdComponentes.get(0).getId());
         
-        System.out.println("Bye bye");
+        System.out.println("[RX-MONITORAMENTO]: Até logo! :)");
 
 
     }
