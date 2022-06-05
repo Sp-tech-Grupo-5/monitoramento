@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import model.ModelComputadores;
+import model.ModelMaquinas;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -27,19 +27,19 @@ public class ControllerProcessos {
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
     ProcessosGroup processos = new ProcessosGroup();
-    ModelComputadores serviceComputadores= new ModelComputadores();
+    ModelMaquinas serviceComputadores= new ModelMaquinas();
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String selectIdComponentes = "select componentes.id from componentes join maquina on maquina.id=componentes.fkmaquina where maquina.hostname=?";
 
     public void insertProcessos() throws UnknownHostException {
-          List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
-                new BeanPropertyRowMapper(ModelComputadores.class),
+          List<ModelMaquinas> getIdComponentes = template.query(selectIdComponentes,
+                new BeanPropertyRowMapper(ModelMaquinas.class),
                 serviceComputadores.getHostName());
           
         Timer timer = new Timer();
         Integer delay = 5000;
-        Integer interval = 30000;
+        Integer interval = 60000;
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override

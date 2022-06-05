@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import model.ModelComputadores;
+import model.ModelMaquinas;
 import org.springframework.jdbc.core.JdbcTemplate;
 import model.ModelCpu;
 import model.ModelDiscos;
@@ -29,7 +29,7 @@ public class ControllerHistoricoComponente {
     ModelCpu serviceCpu = new ModelCpu();
     ModelMemoria serviceMemoria = new ModelMemoria();
     ModelDiscos serviceDisco = new ModelDiscos();
-    ModelComputadores serviceComputadores = new ModelComputadores(); 
+    ModelMaquinas serviceComputadores = new ModelMaquinas(); 
     Connection connection = new Connection();
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
 
@@ -38,17 +38,17 @@ public class ControllerHistoricoComponente {
     public void insertHistoricoComponentes() throws UnknownHostException {
         var selectIdComponentes = "SELECT componentes.id FROM componentes JOIN maquina ON maquina.id=componentes.fkmaquina WHERE maquina.hostname=?";
         var insertHistComponente = "INSERT INTO historicoComponente(cpuHist,memoriaHist,dataHora,fkComponentes,discoHist) values (?,?,?,?,?)";
-        var existsFkComponentes = "SELECT * FROM agoraComponente WHERE fkComponentes=?";
+        var existsFkComponentes = "SELECT id FROM agoraComponente WHERE fkComponentes=?";
         var insertFkComponentes = "INSERT INTO agoraComponente(fkComponentes) VALUES (?)";
         var insertHistComponenteSlack = "UPDATE agoraComponente SET cpuAgora=?,memoriaAgora=?,dataHora=?, discoAgora=? WHERE fkComponentes=? ";
         
         
-          List<ModelComputadores> getIdComponentes = template.query(selectIdComponentes,
-                new BeanPropertyRowMapper(ModelComputadores.class),
+          List<ModelMaquinas> getIdComponentes = template.query(selectIdComponentes,
+                new BeanPropertyRowMapper(ModelMaquinas.class),
                 serviceComputadores.getHostName());
         
-          List<ModelComputadores> existsComponentes = template.query(existsFkComponentes,
-                   new BeanPropertyRowMapper(ModelComputadores.class),
+          List<ModelMaquinas> existsComponentes = template.query(existsFkComponentes,
+                   new BeanPropertyRowMapper(ModelMaquinas.class),
                    getIdComponentes.get(0).getId());
           
           if(existsComponentes.isEmpty()){

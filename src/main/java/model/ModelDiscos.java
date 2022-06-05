@@ -11,13 +11,13 @@ import com.github.britooo.looca.api.group.discos.Volume;
  *
  * @author raylane
  */
-public class ModelDiscos extends Model {
+public class ModelDiscos extends NotifySlack {
 
     private Double tamanhoTotal;
     private DiscosGroup discosGroup;
 
     public ModelDiscos() {
-        super("Senhor(a), gerente ! "
+        super("Hey, Analista ! "
                 + "Há máquinas no setor de atendimento que estão chegando no seu limite de armazenamento! :astonished: :computer:");
         this.discosGroup = new DiscosGroup();
         this.tamanhoTotal = (Double.valueOf(discosGroup.getVolumes()

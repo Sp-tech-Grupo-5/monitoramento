@@ -11,7 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import model.ModelComputadores;
+import model.ModelMaquinas;
 import model.ModelUsuario;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,15 +25,15 @@ public class ControllerUsuarioMaquina {
     JdbcTemplate template = new JdbcTemplate(connection.getBasicDataSource());
     
     ProcessosGroup processos = new ProcessosGroup();
-    ModelComputadores serviceComputadores = new ModelComputadores();
+    ModelMaquinas serviceComputadores = new ModelMaquinas();
 
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String selectIdMaquina = "select maquina.id from maquina where hostname=?";
 
     public void insertUsuarioMaquinaLogin(List<ModelUsuario> getUser) throws UnknownHostException {
-        List<ModelComputadores> getIdComponentes = template.query(selectIdMaquina,
-                new BeanPropertyRowMapper(ModelComputadores.class),
+        List<ModelMaquinas> getIdComponentes = template.query(selectIdMaquina,
+                new BeanPropertyRowMapper(ModelMaquinas.class),
                 serviceComputadores.getHostName());
 
         Date dateLogin = new Date();
@@ -46,8 +46,8 @@ public class ControllerUsuarioMaquina {
     }
 
     public void insertUsuarioMaquinaLogout() throws UnknownHostException {
-        List<ModelComputadores> getIdComponentes = template.query(selectIdMaquina,
-                new BeanPropertyRowMapper(ModelComputadores.class),
+        List<ModelMaquinas> getIdComponentes = template.query(selectIdMaquina,
+                new BeanPropertyRowMapper(ModelMaquinas.class),
                 serviceComputadores.getHostName());
 
         Date dateLogout = new Date();
