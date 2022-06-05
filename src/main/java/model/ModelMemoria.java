@@ -6,7 +6,7 @@ import logs.Logs;
  *
  * @author raylane
  */
-public class ModelMemoria extends Model{
+public class ModelMemoria extends NotifySlack{
 
     private Double memoriaTotal;
     private Memoria memoria;

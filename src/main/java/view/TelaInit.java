@@ -2,7 +2,6 @@ package view;
 
 import controller.ControllerComponentes;
 import controller.ControllerHistoricoComponente;
-import controller.ControllerLogin;
 import controller.ControllerProcessos;
 import controller.ControllerUsuarioMaquina;
 import java.awt.Color;
@@ -12,7 +11,6 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,8 +47,9 @@ public class TelaInit extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabelLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,16 +61,11 @@ public class TelaInit extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Seja bem vindo(a)");
+        jLabel1.setText("Seja bem vindo !");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(160, 230, 121, 16);
-
-        jLabel2.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(130, 280, 180, 17);
+        jLabel1.setBounds(120, 200, 160, 22);
 
         btnLogout.setBackground(new java.awt.Color(79, 80, 101));
         btnLogout.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
@@ -83,14 +77,26 @@ public class TelaInit extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnLogout);
-        btnLogout.setBounds(180, 370, 78, 23);
+        btnLogout.setBounds(140, 360, 120, 30);
+
+        jLabel3.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Coletando informações do seu computador.");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(60, 270, 290, 16);
+
+        jLabel4.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Para encerrar, clique em sair.");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(100, 290, 200, 20);
 
         jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tela-login-rxmonitoramento.png"))); // NOI18N
         jLabelLogo.setRequestFocusEnabled(false);
         getContentPane().add(jLabelLogo);
-        jLabelLogo.setBounds(20, 0, 450, 480);
+        jLabelLogo.setBounds(0, -20, 450, 480);
 
-        setSize(new java.awt.Dimension(447, 529));
+        setSize(new java.awt.Dimension(398, 468));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -105,7 +111,14 @@ public class TelaInit extends javax.swing.JFrame {
     }//GEN-LAST:event_userLogout
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        
+        ControllerUsuarioMaquina usuarioMaquina = new ControllerUsuarioMaquina();
+        try {
+            usuarioMaquina.insertUsuarioMaquinaLogout();
+            dispose();
+            System.exit(0);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TelaInit.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
@@ -150,7 +163,8 @@ public class TelaInit extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelLogo;
     // End of variables declaration//GEN-END:variables
 }

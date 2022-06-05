@@ -11,14 +11,14 @@ import logs.Logs;
  *
  * @author raylane
  */
-public class ModelDiscos extends Model {
+public class ModelDiscos extends NotifySlack {
 
     private Double tamanhoTotal;
     private DiscosGroup discosGroup;
     
     Logs logs = new Logs();
     public ModelDiscos() {
-        super("Senhor(a), gerente ! "
+        super("Hey, Analista ! "
                 + "Há máquinas no setor de atendimento que estão chegando no seu limite de armazenamento! :astonished: :computer:");
         this.discosGroup = new DiscosGroup();
         this.tamanhoTotal = (Double.valueOf(discosGroup.getVolumes()

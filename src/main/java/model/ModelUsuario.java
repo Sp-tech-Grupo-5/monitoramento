@@ -15,6 +15,15 @@ public class ModelUsuario {
     private String usuario;
     private String email;
     private String senha;
+    private String webhook;
+
+    public String getWebhook() {
+        return webhook;
+    }
+
+    public void setWebhook(String webhook) {
+        this.webhook = webhook;
+    }
 
     public String getUsuario() {
         return usuario;

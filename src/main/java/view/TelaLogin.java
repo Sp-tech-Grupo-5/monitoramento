@@ -13,15 +13,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 /**
  *
- * @author Matheus Mattos e Raylane Fernandes
+ * @author Raylane Fernandes
  */
 public class TelaLogin extends javax.swing.JFrame {
     ControllerHistoricoComponente controllerHistoricoComponente = new ControllerHistoricoComponente();
     ControllerProcessos controllerProcessos = new ControllerProcessos();
     ControllerComponentes controllerComponentes = new ControllerComponentes();
+    
+   
+    
+    
+    //LoadingRx load = new LoadingRx();
+    
 
     /**
      * Creates new form TelaLogin
@@ -32,7 +37,7 @@ public class TelaLogin extends javax.swing.JFrame {
         getContentPane().setBackground(Color.decode("#080425"));
 
         // Variaveis para adicionar "favicon" na barra superior da página;
-        URL caminhoImagem = this.getClass().getClassLoader().getResource("tela-login-rxmonitoramento.png");
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("logo-rx-monitoramento.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
         setIconImage(iconeTitulo);
     }
@@ -55,7 +60,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabelLogo1 = new javax.swing.JLabel();
 
-        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tela-login-rxmonitoramento.png"))); // NOI18N
+        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-rx-monitoramento.png"))); // NOI18N
         jLabelLogo.setRequestFocusEnabled(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,13 +71,18 @@ public class TelaLogin extends javax.swing.JFrame {
         jButtonAcessar.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 12)); // NOI18N
         jButtonAcessar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAcessar.setText("ENTRAR");
+        jButtonAcessar.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                load(evt);
+            }
+        });
         jButtonAcessar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAcessarActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonAcessar);
-        jButtonAcessar.setBounds(160, 400, 120, 30);
+        jButtonAcessar.setBounds(150, 370, 120, 30);
 
         txtEmail.setBackground(new java.awt.Color(255, 255, 255));
         txtEmail.setForeground(new java.awt.Color(0, 0, 0));
@@ -82,54 +92,57 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtEmail);
-        txtEmail.setBounds(120, 260, 200, 40);
+        txtEmail.setBounds(110, 230, 200, 40);
 
         pwdLogin.setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().add(pwdLogin);
-        pwdLogin.setBounds(120, 330, 200, 40);
+        pwdLogin.setBounds(110, 300, 200, 40);
 
         jLabel1.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("senha");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(120, 310, 200, 17);
+        jLabel1.setBounds(110, 280, 200, 17);
 
         jLabel2.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("e-mail ");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(120, 240, 200, 17);
+        jLabel2.setBounds(110, 210, 200, 17);
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tela-login-rxmonitoramento.png"))); // NOI18N
         jLabelLogo1.setRequestFocusEnabled(false);
         getContentPane().add(jLabelLogo1);
-        jLabelLogo1.setBounds(20, 0, 450, 480);
+        jLabelLogo1.setBounds(0, -20, 450, 480);
 
-        setSize(new java.awt.Dimension(447, 529));
+        setSize(new java.awt.Dimension(399, 472));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcessarActionPerformed
+       
         String Email = this.txtEmail.getText();
         String Senha = new String(this.pwdLogin.getPassword());
+     
+        //new Thread(new Loading(this)).start();
 
         ControllerLogin validation = new ControllerLogin();
         TelaInit telaInit = new TelaInit();
 
         if (validation.validationDataLogin(Email, Senha)) {
-            System.out.println("Bem vindo ao RX-Monitoramento");
-            System.out.println("Usuario Verificado");
+            System.out.println("[RX-MONITORAMENTO]: Seja Bem-vindo ! ");
+            System.out.println("[RX-MONITORAMENTO]: Usuário verificado");
+
             try {
+                controllerComponentes.insertComponentes();
                 controllerHistoricoComponente.insertHistoricoComponentes();
                 controllerProcessos.insertProcessos();
-                controllerComponentes.insertComponentes();
                 telaInit.setVisible(true);
                 dispose();
 
             } catch (UnknownHostException ex) {
                 Logger.getLogger(view.TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Email/Senha inválido");
@@ -140,6 +153,10 @@ public class TelaLogin extends javax.swing.JFrame {
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void load(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_load
+        
+    }//GEN-LAST:event_load
 
     /**
      * @param args the command line arguments
