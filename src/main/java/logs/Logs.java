@@ -13,7 +13,7 @@ public class Logs {
         File diretorio = new File("Logs");
         diretorio.mkdir();
         String arquivoData = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now());
-        String arquivoNome = String.format("logs/%s.txt", arquivoData);
+        String arquivoNome = String.format("Logs/%s.txt", arquivoData);
         String dataRegistro = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
 
         File arquivo = new File(arquivoNome);
