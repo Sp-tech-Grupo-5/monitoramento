@@ -12,7 +12,7 @@ public class ModelMemoria extends NotifySlack{
     private Memoria memoria;
     Logs logs = new Logs();
     public ModelMemoria() {
-        super("memoria fritando");
+        super("Analista, há computadores com a memoria fritando :fire:");
         this.memoria = new Memoria(); 
         this.memoriaTotal = Double.valueOf(memoria.getTotal()/1000000000.0);
         
